@@ -19,7 +19,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String passWord;
+    private String password;
 
     @Column(unique = true)
     private String phoneNo;
