@@ -1,16 +1,15 @@
 package com.aaryan.bankapi.services;
 
-import com.aaryan.bankapi.Model.Account;
-import com.aaryan.bankapi.Model.AccountType;
-import com.aaryan.bankapi.Model.Transaction;
-import com.aaryan.bankapi.Model.User;
+import com.aaryan.bankapi.Model.*;
 import com.aaryan.bankapi.Repositories.AccountRepository;
 import com.aaryan.bankapi.Repositories.TransactionRepository;
+import com.aaryan.bankapi.dto.TransactionResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -69,16 +68,37 @@ public class AccountServiceImpl implements AccountService{
             receiver.setBalance(receiver.getBalance()+amount);
             accountRepository.save(sender);
             accountRepository.save(receiver);
+            Transaction transaction = new Transaction();
+            transaction.setFromAccount(sender);
+            transaction.setToAccount(receiver);
+            transaction.setAmount(amount);
+            transaction.setTransactionType(TransactionType.TRANSFER);
+            transaction.setStatus("SUCCESS");
+            transaction.setTransactionId("TXN" + System.currentTimeMillis());
+            transactionRepository.save(transaction);
         }else{
             throw new RuntimeException("Insufficient balance");
         }
     }
 
     @Override
-    public List<Transaction> getTransactionHistory(String accountNo) {
+    public List<TransactionResponseDto> getTransactionHistory(String accountNo) {
         Account found = accountRepository.findByAccountNo(accountNo)
                 .orElseThrow(() -> new RuntimeException("Account Not Found"));
         return transactionRepository
-                .findByFromAccountOrToAccount(found, found);
+                .findByFromAccountOrToAccount(found, found)
+                .stream()
+                .map(transaction -> {
+                    TransactionResponseDto dto = new TransactionResponseDto();
+                    dto.setTransactionId(transaction.getTransactionId());
+                    dto.setFromAccountNo(transaction.getFromAccount().getAccountNo());
+                    dto.setToAccountNo(transaction.getToAccount().getAccountNo());
+                    dto.setAmount(transaction.getAmount());
+                    dto.setTransactionType(transaction.getTransactionType());
+                    dto.setStatus(transaction.getStatus());
+                    dto.setCreatedAt(transaction.getCreatedAt());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }

@@ -3,6 +3,8 @@ package com.aaryan.bankapi.services;
 import com.aaryan.bankapi.Model.AccountType;
 import com.aaryan.bankapi.Model.Transaction;
 import com.aaryan.bankapi.Model.User;
+import com.aaryan.bankapi.dto.TransactionResponseDto;
+
 import java.util.List;
 
 public interface AccountService {
@@ -16,5 +18,5 @@ public interface AccountService {
 
     void transfer(String fromAccount , String toAccount , Double amount);
 
-    List<Transaction> getTransactionHistory(String accountNo);
+    List<TransactionResponseDto> getTransactionHistory(String accountNo);
 }
