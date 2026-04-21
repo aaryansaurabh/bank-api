@@ -21,11 +21,18 @@ public class AuthServiceImpl implements AuthService{
     private final JwtUtil jwtUtil;
 
     private final PasswordEncoder passwordEncoder ;
+
+    private final Emailservice emailservice;
     @Override
     public void register(User user, AccountType accountType) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         accountService.createAccount(user,accountType);
+        emailservice.sendEmail(
+                user.getEmail(),
+                "Welcome to Smart Bank",
+                "Hi " + user.getName() + " your Account has been created thanking to choose US"
+        );
     }
 
     @Override

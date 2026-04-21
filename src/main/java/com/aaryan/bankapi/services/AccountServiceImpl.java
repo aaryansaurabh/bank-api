@@ -20,6 +20,8 @@ public class AccountServiceImpl implements AccountService{
     private  final AccountRepository accountRepository;
 
     private final TransactionRepository transactionRepository;
+
+    private  final Emailservice emailservice;
     @Override
     public void createAccount(User user, AccountType accountType) {
         Account account = new Account();
@@ -76,6 +78,18 @@ public class AccountServiceImpl implements AccountService{
             transaction.setStatus("SUCCESS");
             transaction.setTransactionId("TXN" + System.currentTimeMillis());
             transactionRepository.save(transaction);
+            emailservice.sendEmail(
+                    sender.getUser().getEmail(),
+                    "Transfer Alert ",
+                    "Hi " + sender.getUser().getName() +" " + amount + " has been credited to Beneficiary"
+            );
+            emailservice.sendEmail(
+                    receiver.getUser().getEmail(),
+                    "Credit Alert",
+                    "Hi " + receiver.getUser().getName() +" " + amount +
+                            "has been credited by" +sender.getUser().getName()
+
+            );
         }else{
             throw new RuntimeException("Insufficient balance");
         }
