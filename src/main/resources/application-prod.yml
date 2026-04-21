@@ -3,9 +3,9 @@ spring:
     name: bank-api
 
   datasource:
-    url: get_url
-    username: YOUR_USERNAME
-    password: YOUR_PASSWORD
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -16,8 +16,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: YOUR_EMAIL
-    password: YOUR_APP_PASSWORD
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -26,8 +26,8 @@ spring:
             enable: true
 
 jwt:
-  secret: YOUR_SECRET_KEY
-  expiration: Give_in_milliSec
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
 server:
   port: 8080
