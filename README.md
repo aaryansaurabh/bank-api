@@ -8,7 +8,7 @@ A secure RESTful Banking API built with Spring Boot,featuring JWT authentication
 ## Tech Stack
 - Java 17 + Spring Boot 3
 - Spring Security + JWT
-- MySQL (Railway)
+- MySQL (Aiven)
 - JavaMailSender (Gmail SMTP)
 - Swagger / OpenAPI
 - Docker + Render
