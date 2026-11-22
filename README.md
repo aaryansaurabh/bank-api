@@ -3,7 +3,7 @@
 A secure RESTful Banking API built with Spring Boot,featuring JWT authentication,account management,fund transfers,& email notifications.
 
 ## Demo
-[Swagger UI](https://bank-api-ci3c.onrender.com/swagger-ui/index.html)
+[Swagger UI](http://129.225.125.197:8080/swagger-ui/index.html)
 
 ## Tech Stack
 - Java 17 + Spring Boot 3
@@ -11,7 +11,7 @@ A secure RESTful Banking API built with Spring Boot,featuring JWT authentication
 - MySQL (Aiven)
 - JavaMailSender (Gmail SMTP)
 - Swagger / OpenAPI
-- Docker + Render
+- Docker + Oracle cloud
 
 ## Features
 - User Registration & Login with JWT
