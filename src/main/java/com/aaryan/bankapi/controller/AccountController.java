@@ -1,6 +1,5 @@
 package com.aaryan.bankapi.controller;
 
-import com.aaryan.bankapi.Model.Transaction;
 import com.aaryan.bankapi.dto.TransactionResponseDto;
 import com.aaryan.bankapi.services.AccountService;
 import lombok.RequiredArgsConstructor;
